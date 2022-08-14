@@ -164,12 +164,13 @@ function locateApple() {
 function checkApple() {
     // You have to check here whether the apple is eaten by the snake or not
     if(apple.x==snake.x[0] && apple.y==snake.y[0]){
-        let newx = Math.floor((Math.random() * 29)+1);
-        let newy = Math.floor((Math.random() * 29)+1);
-        apple.x = newx * 10;
-        apple.y = newy * 10;
-        snake.size += 1;
-
+        score++;
+        document.getElementById("score").value = score;
+        let newx = Math.floor((Math.random() * 29) + 1);
+        let newy = Math.floor((Math.random() * 29) + 1);
+        apple.x=newx*10;
+        apple.y=newy*10;
+        snake.size+=1;
     }
 }
 
