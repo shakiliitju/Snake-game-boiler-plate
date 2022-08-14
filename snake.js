@@ -24,14 +24,14 @@ let leftDirection = false;
 let rightDirection = true;
 let upDirection = false;
 let downDirection = false;
-let inGame = true;    
+let inGame = true;
 
 const DELAY = 140;
 const MAX_RAND = 29;
 const CELL_SIZE = 10;
-const CANVAS_WIDTH = 300; 
+const CANVAS_WIDTH = 300;
 const CANVAS_HEIGHT = 300;
-   
+
 const LEFT_KEY = 37;
 const RIGHT_KEY = 39;
 const UP_KEY = 38;
@@ -43,17 +43,22 @@ function init() {
     killedByHittingItself = document.getElementById('killed-by-hitting-itself').checked;
     snakeBodyDisappear = document.getElementById('snake-body-disappear').checked;
 
-    if(circularWay) {
+    if (circularWay) {
         // write the  code here
     }
-    if(killedByHittingItself) {
-        // write the  code here
-        gameOver();
+    if (killedByHittingItself) {
+
+        for (let z = 1; z < snake.size; z++) {
+            if (snake.x[0] == snake.x[z] && snake.y[0] == snake.y[z]) {
+                gameOver();
+                return;
+            }
+        }
     }
-    if(snakeBodyDisappear) {
+    if (snakeBodyDisappear) {
         // write the  code here
     }
-    
+
     canvas = document.getElementById('myCanvas');
     canvasContext = canvas.getContext('2d');
     scoreSpan = document.getElementById("score");
@@ -62,17 +67,21 @@ function init() {
     createInitialSnakePosition();
     locateApple();
     setTimeout("gameCycle()", DELAY);
-}    
+}
+
+function loadImages() {
+
 
 function loadImages() {   
     headImage = new Image();
     headImage.src = 'images/head.png'
     
+
     bodyImage = new Image();
-    bodyImage.src = 'images/body.png'; 
-    
+    bodyImage.src = 'images/body.png';
+
     appleImage = new Image();
-    appleImage.src = 'images/apple.png'; 
+    appleImage.src = 'images/apple.png';
 }
 
 function doDrawing() {
@@ -100,7 +109,7 @@ function createInitialSnakePosition() {
         snake.y[z]  = Math.floor((Math.random() * 300));
         
     }
-}   
+}
 
 function clearCanvas() {
     canvasContext.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -120,16 +129,16 @@ function drawSnake() {
 
 function gameOver() {
     canvasContext.fillStyle = 'white';
-    canvasContext.textBaseline = 'middle'; 
-    canvasContext.textAlign = 'center'; 
+    canvasContext.textBaseline = 'middle';
+    canvasContext.textAlign = 'center';
     canvasContext.font = 'normal bold 18px serif';
-    
-    canvasContext.fillText('Game over', CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
+
+    canvasContext.fillText('Game over', CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
 }
 
 function locateApple() {
     // You have to write code here to place the apple in different position in the canvas
-}    
+}
 
 function checkApple() {
     // You have to check here whether the apple is eaten by the snake or not
@@ -153,50 +162,50 @@ function checkCollision() {
     }
 
     if (snake.y[0] < 0) {
-       inGame = false;
+        inGame = false;
     }
 
     if (snake.x[0] >= CANVAS_WIDTH) {
-      inGame = false;
+        inGame = false;
     }
 
     if (snake.x[0] < 0) {
-      inGame = false;
+        inGame = false;
     }
 }
 
-onkeydown = function(e) {
-    
+onkeydown = function (e) {
+
     let key = e.keyCode;
-    
+
     if ((key == LEFT_KEY) && (!rightDirection)) {
-        
+
         leftDirection = true;
         upDirection = false;
         downDirection = false;
     }
 
     if ((key == RIGHT_KEY) && (!leftDirection)) {
-        
+
         rightDirection = true;
         upDirection = false;
         downDirection = false;
     }
 
     if ((key == UP_KEY) && (!downDirection)) {
-        
+
         upDirection = true;
         rightDirection = false;
         leftDirection = false;
     }
 
     if ((key == DOWN_KEY) && (!upDirection)) {
-        
+
         downDirection = true;
         rightDirection = false;
         leftDirection = false;
-    }        
-}  
+    }
+}
 
 function move() {
 
@@ -220,10 +229,10 @@ function move() {
     if (downDirection) {
         snake.y[0] += CELL_SIZE;
     }
-}  
+}
 
 function gameCycle() {
-    
+
     if (inGame) {
 
         checkApple();
