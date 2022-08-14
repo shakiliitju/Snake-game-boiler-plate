@@ -103,9 +103,9 @@ function drawApple() {
 }
 
 function drawSnake() {
-    for (let z = 0; z < snake.size; z++) {
+    canvasContext.drawImage(headImage, snake.x[0], snake.y[0]);
+    for (let z = 1; z < snake.size; z++) {
         canvasContext.drawImage(bodyImage, snake.x[z], snake.y[z]);
-        canvasContext.drawImage(headImage, snake.x[z-2], snake.y[z-2]);
     }
 }
 
