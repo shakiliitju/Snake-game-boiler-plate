@@ -43,8 +43,25 @@ function init() {
     killedByHittingItself = document.getElementById('killed-by-hitting-itself').checked;
     snakeBodyDisappear = document.getElementById('snake-body-disappear').checked;
 
+
+    if (!circularWay) {
+        checkCollision();
+    }
     if (circularWay) {
         // write the  code here
+
+        if (snake.y[0] < 0 && upDirection) {
+            snake.y[0] = 300;
+        }
+        if (snake.y[0] >= 300 && downDirection) {
+            snake.y[0] = 0;
+        }
+        if (snake.x[0] < 0 && leftDirection) {
+            snake.x[0] = 300;
+        }
+        if (snake.x[0] >= 300 && rightDirection) {
+            snake.x[0] = 0;
+        }
     }
     if (killedByHittingItself) {
 
@@ -55,6 +72,16 @@ function init() {
             }
         }
     }
+    if (snakeBodyDisappear) {
+        // write the  code here
+        for (let z = 1; z < snake.size; z++) {
+            if (snake.x[0] == snake.x[z] && snake.y[0] == snake.y[z]) {
+                gameOver();
+                return;
+            }
+        }
+    }
+
     if (snakeBodyDisappear) {
         // write the  code here
     }
@@ -70,12 +97,8 @@ function init() {
 }
 
 function loadImages() {
-
-
-function loadImages() {   
     headImage = new Image();
     headImage.src = 'images/head.png'
-    
 
     bodyImage = new Image();
     bodyImage.src = 'images/body.png';
@@ -103,11 +126,9 @@ function createInitialSnakePosition() {
     //     snake.y[z] = 50;
     // }
 
-      for(let z = 0; z < snake.size; z++) {
-
-        snake.x[z]  = Math.floor((Math.random() * 300));
-        snake.y[z]  = Math.floor((Math.random() * 300));
-        
+    for (let z = 0; z < snake.size; z++) {
+        snake.x[z] = Math.floor((Math.random() * 300));
+        snake.y[z] = Math.floor((Math.random() * 300));
     }
 }
 
@@ -143,14 +164,11 @@ function locateApple() {
 function checkApple() {
     // You have to check here whether the apple is eaten by the snake or not
     if(apple.x==snake.x[0] && apple.y==snake.y[0]){
-
         let newx = Math.floor((Math.random() * 29)+1);
         let newy = Math.floor((Math.random() * 29)+1);
-
         apple.x = newx * 10;
         apple.y = newy * 10;
-
-        snake.size+=1;
+        snake.size += 1;
 
     }
 }
