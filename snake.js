@@ -7,6 +7,7 @@ let snakeBodyDisappear;
 
 let appleImage;
 let bodyImage;
+let headImage;
 
 let apple = {
     x: 0,
@@ -42,15 +43,13 @@ function init() {
     killedByHittingItself = document.getElementById('killed-by-hitting-itself').checked;
     snakeBodyDisappear = document.getElementById('snake-body-disappear').checked;
 
+
     if (!circularWay) {
         checkCollision();
     }
     if (circularWay) {
         // write the  code here
-<<<<<<< Updated upstream
-    }
-    if(snakeBodyDisappear) {
-=======
+
         if (snake.y[0] < 0 && upDirection) {
             snake.y[0] = 300;
         }
@@ -65,7 +64,7 @@ function init() {
         }
     }
     if (killedByHittingItself) {
-        // write the  code here
+
         for (let z = 1; z < snake.size; z++) {
             if (snake.x[0] == snake.x[z] && snake.y[0] == snake.y[z]) {
                 gameOver();
@@ -74,7 +73,16 @@ function init() {
         }
     }
     if (snakeBodyDisappear) {
->>>>>>> Stashed changes
+        // write the  code here
+        for (let z = 1; z < snake.size; z++) {
+            if (snake.x[0] == snake.x[z] && snake.y[0] == snake.y[z]) {
+                gameOver();
+                return;
+            }
+        }
+    }
+
+    if (snakeBodyDisappear) {
         // write the  code here
     }
 
@@ -88,15 +96,10 @@ function init() {
     setTimeout("gameCycle()", DELAY);
 }
 
-<<<<<<< Updated upstream
-function loadImages() {   
-    
-=======
 function loadImages() {
     headImage = new Image();
     headImage.src = 'images/head.png'
 
->>>>>>> Stashed changes
     bodyImage = new Image();
     bodyImage.src = 'images/body.png';
 
@@ -118,22 +121,14 @@ function doDrawing() {
 
 function createInitialSnakePosition() {
 
-<<<<<<< Updated upstream
-    for (let z = 0; z < snake.size; z++) {
-        snake.x[z] = 50 - z * CELL_SIZE;
-        snake.y[z] = 50;
-=======
     // for (let z = 0; z < snake.size; z++) {
     //     snake.x[z] = 50 - z * CELL_SIZE;
     //     snake.y[z] = 50;
     // }
 
     for (let z = 0; z < snake.size; z++) {
-
         snake.x[z] = Math.floor((Math.random() * 300));
         snake.y[z] = Math.floor((Math.random() * 300));
-
->>>>>>> Stashed changes
     }
 }
 
@@ -146,10 +141,12 @@ function drawApple() {
 }
 
 function drawSnake() {
-    for (let z = 0; z < snake.size; z++) {
+    canvasContext.drawImage(headImage, snake.x[0], snake.y[0]);
+    for (let z = 1; z < snake.size; z++) {
         canvasContext.drawImage(bodyImage, snake.x[z], snake.y[z]);
     }
 }
+
 
 function gameOver() {
     canvasContext.fillStyle = 'white';
@@ -166,20 +163,14 @@ function locateApple() {
 
 function checkApple() {
     // You have to check here whether the apple is eaten by the snake or not
-<<<<<<< Updated upstream
-=======
-    if (apple.x == snake.x[0] && apple.y == snake.y[0]) {
-
-        let newx = Math.floor((Math.random() * 29) + 1);
-        let newy = Math.floor((Math.random() * 29) + 1);
-
+    if(apple.x==snake.x[0] && apple.y==snake.y[0]){
+        let newx = Math.floor((Math.random() * 29)+1);
+        let newy = Math.floor((Math.random() * 29)+1);
         apple.x = newx * 10;
         apple.y = newy * 10;
-
         snake.size += 1;
 
     }
->>>>>>> Stashed changes
 }
 
 function checkCollision() {
